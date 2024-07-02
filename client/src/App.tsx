@@ -13,11 +13,13 @@ const App = () => {
   const [roomCode, setRoomCode] = useState(null);
   const [showJoinModal, setShowJoinModal] = useState(true);
   const [showMessageModal, setShowMessageModal] = useState(false);
+  const [userName, setUserName] = useState(null);
+  const [showUserModal, setShowUserModal] = useState(false);
 
   useEffect(() => {
     console.log("roomCode = ", roomCode);
     if (roomCode) {
-      socket.emit("Join Room", roomCode);
+      socket.emit("Join Room", {roomCode, userName});
     }
   }, [roomCode]);
 
@@ -26,7 +28,13 @@ const App = () => {
       setRoomCode(null);
       setShowMessageModal(true);
     });
-  })
+
+    socket.on("user joined", (userName) => {
+      console.log("userName = ", userName);
+      setUserName(userName);
+      setShowUserModal(true);
+    });
+  });
 
   return (
     <>
@@ -34,6 +42,7 @@ const App = () => {
         showJoinModal={showJoinModal}
         setShowJoinModal={setShowJoinModal}
         setRoomCode={setRoomCode}
+        setUser={setUserName}
       />
       <MessageModal
         showMessageModal={showMessageModal}
@@ -41,7 +50,13 @@ const App = () => {
         message={"Room Already Filled"}
         setShowJoinModal={setShowJoinModal}
       />
-      {roomCode && <Main socket={socket} roomCode={roomCode} />}
+        <MessageModal
+          showMessageModal={showUserModal}
+          setShowMessageModal={setShowUserModal}
+          message={`${userName} joined in the room`}
+          setShowJoinModal={true}
+        />
+      {roomCode && <Main socket={socket} roomCode={roomCode} userName={userName}/>}
     </>
   );
 };

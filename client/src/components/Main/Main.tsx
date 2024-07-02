@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import { Cell } from "../Cell/Cell";
+import { MessageModal } from "../MessageModal/MessageModal";
 import "./Main.css"
 
 //@ts-ignore
-export const Main = ({ roomCode, socket }) => {
+export const Main = ({ roomCode, socket, userName }) => {
   const [board, setBoard] = useState(["", "", "", "", "", "", "", "", ""]);
-
   const [canPlay, setCanPlay] = useState(true);
+  const [showMessageModal, setShowMessageModal] = useState(false);
+  const [message, setMessage] = useState("");
 
   //Main logic to check someone won or not
   useEffect(() => {
@@ -21,6 +23,8 @@ export const Main = ({ roomCode, socket }) => {
       (board[2] == board[4] && board[4] == board[6] && board[2] != "")
     ) {
       setBoard(["", "", "", "", "", "", "", "", ""]);
+      setMessage(`${userName} won this game!`);
+      setShowMessageModal(true);
     }
   }, [canPlay]);
 
@@ -45,20 +49,68 @@ export const Main = ({ roomCode, socket }) => {
   };
 
   return (
-    <main>
-      <section className="main-section">
-        <Cell handelClick={handleCellClick} id={"0"} text={board[0]} />
-        <Cell handelClick={handleCellClick} id={"1"} text={board[1]} />
-        <Cell handelClick={handleCellClick} id={"2"} text={board[2]} />
+    <>
+      {showMessageModal && <MessageModal showMessageModal={showMessageModal} setShowMessageModal={setShowMessageModal} message={message} setShowJoinModal={true}/>}
+      <main>
+        <section className="main-section">
+          <Cell
+            handelClick={handleCellClick}
+            id={"0"}
+            text={board[0]}
+            canPlay={canPlay}
+          />
+          <Cell
+            handelClick={handleCellClick}
+            id={"1"}
+            text={board[1]}
+            canPlay={canPlay}
+          />
+          <Cell
+            handelClick={handleCellClick}
+            id={"2"}
+            text={board[2]}
+            canPlay={canPlay}
+          />
 
-        <Cell handelClick={handleCellClick} id={"3"} text={board[3]} />
-        <Cell handelClick={handleCellClick} id={"4"} text={board[4]} />
-        <Cell handelClick={handleCellClick} id={"5"} text={board[5]} />
+          <Cell
+            handelClick={handleCellClick}
+            id={"3"}
+            text={board[3]}
+            canPlay={canPlay}
+          />
+          <Cell
+            handelClick={handleCellClick}
+            id={"4"}
+            text={board[4]}
+            canPlay={canPlay}
+          />
+          <Cell
+            handelClick={handleCellClick}
+            id={"5"}
+            text={board[5]}
+            canPlay={canPlay}
+          />
 
-        <Cell handelClick={handleCellClick} id={"6"} text={board[6]} />
-        <Cell handelClick={handleCellClick} id={"7"} text={board[7]} />
-        <Cell handelClick={handleCellClick} id={"8"} text={board[8]} />
-      </section>
-    </main>
+          <Cell
+            handelClick={handleCellClick}
+            id={"6"}
+            text={board[6]}
+            canPlay={canPlay}
+          />
+          <Cell
+            handelClick={handleCellClick}
+            id={"7"}
+            text={board[7]}
+            canPlay={canPlay}
+          />
+          <Cell
+            handelClick={handleCellClick}
+            id={"8"}
+            text={board[8]}
+            canPlay={canPlay}
+          />
+        </section>
+      </main>
+    </>
   );
 };

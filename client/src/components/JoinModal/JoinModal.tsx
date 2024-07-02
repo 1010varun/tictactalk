@@ -23,12 +23,14 @@ const modal = {
 };
 
 //@ts-ignore
-export const JoinModal = ({showJoinModal, setShowJoinModal, setRoomCode}) => {
+export const JoinModal = ({showJoinModal, setShowJoinModal, setRoomCode, setUser}) => {
     const [roomId, setRoomId] = useState<any | null>(null);
+    const [userName, setUserName] = useState<any | null>("");
 
     const handleSave = () => {
         setRoomCode(roomId);
         setShowJoinModal(false);
+        setUser(userName)
     };
 
     return (
@@ -49,6 +51,12 @@ export const JoinModal = ({showJoinModal, setShowJoinModal, setRoomCode}) => {
                 placeholder="eg: 1212"
                 onChange={(e) => setRoomId(e.target.value)}
               />
+              <input
+                className="joinRoomModal-card-input"
+                type="text"
+                placeholder="eg: John Doe"
+                onChange={(e) => setUserName(e.target.value)}
+              />
               <button
                 onClick={handleSave}
                 className="joinRoomModal-card-button"
@@ -61,5 +69,3 @@ export const JoinModal = ({showJoinModal, setShowJoinModal, setRoomCode}) => {
       </>
     );
 };
-
-// export default JoinModal;

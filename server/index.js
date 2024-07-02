@@ -17,7 +17,7 @@ io.on("connection", (socket) => {
     console.log("user connected");
 
 
-    socket.on("Join Room", (roomCode) => {
+    socket.on("Join Room", ({roomCode, userName}) => {
       if(rooms[roomCode]) {
         let length = rooms[roomCode].length;
         if(length === 2) {
@@ -26,13 +26,15 @@ io.on("connection", (socket) => {
         }
         else {
           rooms[roomCode].push(socket.id);  
-          console.log("A user joined Room", roomCode, socket.id);
+          console.log("A user joined Room", roomCode, socket.id, userName);
+          socket.broadcast.to(roomCode).emit("user joined", userName);
           socket.join(roomCode);
         }
       }
       else {
         rooms[roomCode] = [socket.id];
-        console.log("A user joined Room", roomCode, socket.id);
+        console.log("A user joined Room", roomCode, socket.id, userName);
+        socket.broadcast.to(roomCode).emit("user joined", userName);
         socket.join(roomCode);
       }
     });
