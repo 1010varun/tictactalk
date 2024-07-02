@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import "./JoinModal.css";
+import "./MessageModal.css";
 
 const backgrop = {
   visible: { opacity: 1 },
@@ -22,25 +22,26 @@ const modal = {
 };
 
 //@ts-ignore
-export const JoinModal = ({ showMessageModal, setShowMessageModal, message }) => {
+export const MessageModal = ({ showMessageModal, setShowMessageModal, message, setShowJoinModal }) => {
 
   const handleClick = () => {
     setShowMessageModal(false);
+    setShowJoinModal(true);
   };
 
   return (
     <>
       {showMessageModal && (
         <motion.div
-          className="joinRoomModal-container"
+          className="messageModal-container"
           variants={backgrop}
           initial="hidden"
           animate="visible"
           exit="exit"
         >
-          <motion.div className="joinRoomModal-card" variants={modal}>
-            <h1 className="joinRoomModal-card-title">{message}</h1>
-            <button onClick={handleClick} className="joinRoomModal-card-button">
+          <motion.div className="messageModal-card" variants={modal}>
+            <h1 className="messageModal-card-title">{message}</h1>
+            <button onClick={handleClick} className="messageModal-card-button">
               Understood!
             </button>
           </motion.div>
@@ -49,5 +50,3 @@ export const JoinModal = ({ showMessageModal, setShowMessageModal, message }) =>
     </>
   );
 };
-
-// export default JoinModal;

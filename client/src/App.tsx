@@ -1,27 +1,9 @@
-// import "./App.css";
-// import { BrowserRouter, Routes, Route } from "react-router-dom";
-// import {Landing} from "./screens/Landing.js"
-// import {Room} from "./screens/Room.js"
-
-// function App() {
-
-//   return (
-//     <BrowserRouter>
-//       <Routes>
-//         <Route path="/" element={<Landing/>}/>
-//         <Route path="/room/:roomId" element={<Room/>}/>
-//       </Routes>
-//     </BrowserRouter>
-//   );
-// }
-
-// export default App
-
 import { useState, useEffect } from "react";
 import io from "socket.io-client";
 
 import { JoinModal } from "./components/JoinModal/JoinModal";
 import { Main } from "./components/Main/Main";
+import { MessageModal } from "./components/MessageModal/MessageModal";
 
 
 
@@ -30,6 +12,7 @@ const socket = io("http://localhost:5000");
 const App = () => {
   const [roomCode, setRoomCode] = useState(null);
   const [showJoinModal, setShowJoinModal] = useState(true);
+  const [showMessageModal, setShowMessageModal] = useState(false);
 
   useEffect(() => {
     console.log("roomCode = ", roomCode);
@@ -41,7 +24,7 @@ const App = () => {
   useEffect(() => {
     socket.on("Room Filled", () => {
       setRoomCode(null);
-      console.log("error")
+      setShowMessageModal(true);
     });
   })
 
@@ -52,9 +35,13 @@ const App = () => {
         setShowJoinModal={setShowJoinModal}
         setRoomCode={setRoomCode}
       />
-      {roomCode && (
-        <Main socket={socket} roomCode={roomCode}/>
-      )}
+      <MessageModal
+        showMessageModal={showMessageModal}
+        setShowMessageModal={setShowMessageModal}
+        message={"Room Already Filled"}
+        setShowJoinModal={setShowJoinModal}
+      />
+      {roomCode && <Main socket={socket} roomCode={roomCode} />}
     </>
   );
 };
