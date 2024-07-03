@@ -42,7 +42,7 @@ export const MessageModal = ({ showMessageModal, setShowMessageModal, message, s
           <motion.div className="messageModal-card" variants={modal}>
             <h1 className="messageModal-card-title">{message}</h1>
             <button onClick={handleClick} className="messageModal-card-button">
-              Understood!
+              Okieee!
             </button>
           </motion.div>
         </motion.div>

@@ -1,0 +1,28 @@
+.header-title {
+  text-align: center;
+  color: var(--secondary-color);
+}
+
+.turn-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--secondary-color);
+    background-color: greenyellow;
+    /* width: 50%; */
+    margin: 2% 40%;
+    padding: 1%;
+    border-radius: 25px;
+}
+
+.noturn-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--secondary-color);
+    background-color: red;
+    /* width: 50%; */
+    margin: 2% 40%;
+    padding: 1%;
+    border-radius: 25px;
+}

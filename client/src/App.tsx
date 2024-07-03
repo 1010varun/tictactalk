@@ -4,8 +4,7 @@ import io from "socket.io-client";
 import { JoinModal } from "./components/JoinModal/JoinModal";
 import { Main } from "./components/Main/Main";
 import { MessageModal } from "./components/MessageModal/MessageModal";
-
-
+// import { Header } from "./components/Header/Header";
 
 const socket = io("http://localhost:5000");
 
@@ -19,7 +18,7 @@ const App = () => {
   useEffect(() => {
     console.log("roomCode = ", roomCode);
     if (roomCode) {
-      socket.emit("Join Room", {roomCode, userName});
+      socket.emit("Join Room", { roomCode, userName });
     }
   }, [roomCode]);
 
@@ -50,13 +49,17 @@ const App = () => {
         message={"Room Already Filled"}
         setShowJoinModal={setShowJoinModal}
       />
-        <MessageModal
-          showMessageModal={showUserModal}
-          setShowMessageModal={setShowUserModal}
-          message={`${userName} joined in the room`}
-          setShowJoinModal={true}
-        />
-      {roomCode && <Main socket={socket} roomCode={roomCode} userName={userName}/>}
+      <MessageModal
+        showMessageModal={showUserModal}
+        setShowMessageModal={setShowUserModal}
+        message={`${userName} joined in the room`}
+        setShowJoinModal={true}
+      />
+      {roomCode && (
+        // <Header canPlay={}/>
+        <Main socket={socket} roomCode={roomCode} userName={userName} />
+
+      )}
     </>
   );
 };

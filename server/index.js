@@ -34,7 +34,6 @@ io.on("connection", (socket) => {
       else {
         rooms[roomCode] = [socket.id];
         console.log("A user joined Room", roomCode, socket.id, userName);
-        socket.broadcast.to(roomCode).emit("user joined", userName);
         socket.join(roomCode);
       }
     });

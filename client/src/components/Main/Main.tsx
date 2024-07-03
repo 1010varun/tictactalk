@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Cell } from "../Cell/Cell";
 import { MessageModal } from "../MessageModal/MessageModal";
+import { Header } from "../Header/Header";
 import "./Main.css"
 
 //@ts-ignore
@@ -23,7 +24,8 @@ export const Main = ({ roomCode, socket, userName }) => {
       (board[2] == board[4] && board[4] == board[6] && board[2] != "")
     ) {
       setBoard(["", "", "", "", "", "", "", "", ""]);
-      setMessage(`${userName} won this game!`);
+      if(!canPlay)setMessage(`You won this game!`);
+      else setMessage(`You Loose this game!!`)
       setShowMessageModal(true);
     }
   }, [canPlay]);
@@ -51,6 +53,7 @@ export const Main = ({ roomCode, socket, userName }) => {
   return (
     <>
       {showMessageModal && <MessageModal showMessageModal={showMessageModal} setShowMessageModal={setShowMessageModal} message={message} setShowJoinModal={true}/>}
+      <Header canPlay={canPlay}/>
       <main>
         <section className="main-section">
           <Cell
