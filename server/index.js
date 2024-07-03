@@ -39,8 +39,14 @@ io.on("connection", (socket) => {
     });
 
     socket.on("play", ({id, roomCode}) => {
+      if(rooms[roomCode].length !== 2) {
+        console.log("inside if")
+        socket.emit("opponent not present");
+      }
+      else {
       console.log("user in room", roomCode, "play a move at", id);
       socket.broadcast.to(roomCode).emit("game update", id);
+      }
     });
 
     socket.on("disconnect", () => {

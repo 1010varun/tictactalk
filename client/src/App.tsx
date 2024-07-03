@@ -4,7 +4,7 @@ import io from "socket.io-client";
 import { JoinModal } from "./components/JoinModal/JoinModal";
 import { Main } from "./components/Main/Main";
 import { MessageModal } from "./components/MessageModal/MessageModal";
-// import { Header } from "./components/Header/Header";
+import { ErrorModal } from "./components/ErrorModal/ErrorModal";
 
 const socket = io("http://localhost:5000");
 
@@ -14,6 +14,7 @@ const App = () => {
   const [showMessageModal, setShowMessageModal] = useState(false);
   const [userName, setUserName] = useState(null);
   const [showUserModal, setShowUserModal] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
 
   useEffect(() => {
     console.log("roomCode = ", roomCode);
@@ -33,6 +34,13 @@ const App = () => {
       setUserName(userName);
       setShowUserModal(true);
     });
+
+    socket.on("opponent not present", () => {
+      setShowErrorModal(true);
+      
+    });
+
+
   });
 
   return (
@@ -55,10 +63,13 @@ const App = () => {
         message={`${userName} joined in the room`}
         setShowJoinModal={true}
       />
+      <ErrorModal
+        showErrorModal={showErrorModal}
+        setShowErrorModal={setShowErrorModal}
+        error={`No opponent present in this room`}
+      />
       {roomCode && (
-        // <Header canPlay={}/>
         <Main socket={socket} roomCode={roomCode} userName={userName} />
-
       )}
     </>
   );
