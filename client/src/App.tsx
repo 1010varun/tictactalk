@@ -9,7 +9,7 @@ import { NewMessageModal } from "./components/NewMessageModal/NewMessageModal";
 import { TypeNewMessageModal } from "./components/TypeNewMessageModal/TypeNewMessageModal";
 import { Footer } from "./components/Footer/Footer"; 
 
-const socket = io("http://localhost:5000");
+const socket = io(import.meta.env.VITE_BACKEND_URL);
 
 const App = () => {
   const [roomCode, setRoomCode] = useState(null);

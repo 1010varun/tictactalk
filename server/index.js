@@ -13,6 +13,11 @@ const io = require('socket.io')(server, {
 
 let rooms = {}
 
+app.get("/", (req, res) => {
+  res.send("hello from server");
+})
+
+
 io.on("connection", (socket) => {
     console.log("user connected");
 
