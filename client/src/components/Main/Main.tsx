@@ -5,11 +5,17 @@ import { Header } from "../Header/Header";
 import "./Main.css"
 
 //@ts-ignore
-export const Main = ({ roomCode, socket, userName }) => {
+export const Main = ({ roomCode, socket, reset, setReset }) => {
   const [board, setBoard] = useState(["", "", "", "", "", "", "", "", ""]);
   const [canPlay, setCanPlay] = useState(true);
   const [showMessageModal, setShowMessageModal] = useState(false);
   const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    setBoard(["", "", "", "", "", "", "", "", ""]);
+    setReset(false);
+    setCanPlay(true);
+  }, [reset])
 
   //Main logic to check someone won or not
   useEffect(() => {
@@ -24,8 +30,14 @@ export const Main = ({ roomCode, socket, userName }) => {
       (board[2] == board[4] && board[4] == board[6] && board[2] != "")
     ) {
       setBoard(["", "", "", "", "", "", "", "", ""]);
-      if(!canPlay)setMessage(`You won this game!`);
+      if(!canPlay)setMessage(`You wonnn this game!`);
       else setMessage(`You Loose this game!!`)
+      setShowMessageModal(true);
+    }
+
+    if(board[0] !== "" && board[1] !== "" && board[2] !== "" && board[3] !== "" && board[4] !== "" && board[5] !== "" && board[6] !== "" && board[7] !== "" && board[8] !== "") {
+      setBoard(["", "", "", "", "", "", "", "", ""]);
+      setMessage(`Game Drawwww :/`);
       setShowMessageModal(true);
     }
   }, [canPlay]);

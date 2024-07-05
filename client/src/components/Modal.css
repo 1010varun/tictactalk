@@ -1,4 +1,4 @@
-.messageModal-container {
+.modal-container {
   height: 100%;
   width: 100%;
   backdrop-filter: blur(3px);
@@ -9,7 +9,7 @@
   position: fixed;
 }
 
-.messageModal-container::after {
+.modal-container::after {
   content: "";
   position: absolute;
   top: 0;
@@ -21,28 +21,45 @@
   background: var(--primary-color);
 }
 
-.messageModal-card {
+.modal-card {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-
+  margin: 0 15% 0 8%;
   padding: 1rem;
 }
 
-.messageModal-card-title {
+.modal-card-title {
   color: var(--secondary-color);
   text-align: center;
 }
 
-.messageModal-card-button {
+.modal-card-input {
+  font-size: 2rem;
+  border: 3px solid var(--secondary-color);
+  background-color: var(--primary-color);
+  outline: none;
+  padding: 1rem;
+  border-radius: 16px;
+  color: var(--secondary-color);
+}
+
+.modal-card-button {
   background-color: var(--secondary-color);
   border: 3px solid var(--primary-color);
   border-radius: 16px;
   font-size: 2rem;
   padding: 1rem;
   color: var(--primary-color);
+  cursor: pointer;
 }
 
-.messageModal-card-button:hover {
+.cancel-modal-card-button {
+  background-color: rgb(206, 16, 16);
+  border: 3px solid var(--primary-color);
+  border-radius: 16px;
+  font-size: 2rem;
+  padding: 1rem;
+  color: var(--primary-color);
   cursor: pointer;
 }

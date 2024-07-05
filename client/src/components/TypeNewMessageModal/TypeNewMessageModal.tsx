@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import "./TypeNewMessageModal.css";
+import "../Modal.css";
 
 const backgrop = {
   visible: { opacity: 1 },
@@ -30,27 +30,33 @@ export const TypeNewMessageModal = ({setNewMessage, setShowTypeNewMessageModal, 
     setNewMessage(message);
     setShowTypeNewMessageModal(false);
   };
+  const Cancel = () => {
+    setShowTypeNewMessageModal(false);
+  };
 
   return (
     <>
       {showTypeNewMessageModal && (
         <motion.div
-          className="joinRoomModal-container"
+          className="modal-container"
           variants={backgrop}
           initial="hidden"
           animate="visible"
           exit="exit"
         >
-          <motion.div className="joinRoomModal-card" variants={modal}>
-            <h1 className="joinRoomModal-card-title">Type a New Message</h1>
+          <motion.div className="modal-card" variants={modal}>
+            <h1 className="modal-card-title">Type a New Message</h1>
             <input
-              className="joinRoomModal-card-input"
+              className="modal-card-input"
               type="text"
               placeholder="eg: hellooooooo"
               onChange={(e) => setMessage(e.target.value)}
             />
-            <button onClick={handleSave} className="joinRoomModal-card-button">
+            <button onClick={handleSave} className="modal-card-button">
               Send!
+            </button>
+            <button onClick={Cancel} className="cancel-modal-card-button">
+              Cancel!
             </button>
           </motion.div>
         </motion.div>

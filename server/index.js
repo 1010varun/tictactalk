@@ -83,6 +83,7 @@ io.on("connection", (socket) => {
         rooms[roomCode] = room.filter((user) => user.socketId !== socket.id);
         if (rooms[roomCode].length < initialLength) {
           roo = roomCode;
+          socket.broadcast.to(roomCode).emit("opponent left")
         }
       }
       console.log("user disconnected from room", roo);

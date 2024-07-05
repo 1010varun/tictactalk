@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import "./ErrorModal.css";
+import "../Modal.css";
 
 const backgrop = {
   visible: { opacity: 1 },
@@ -31,15 +31,15 @@ export const ErrorModal = ({showErrorModal, setShowErrorModal, error}) => {
     <>
       {showErrorModal && (
         <motion.div
-          className="errorModal-container"
+          className="modal-container"
           variants={backgrop}
           initial="hidden"
           animate="visible"
           exit="exit"
         >
-          <motion.div className="errorModal-card" variants={modal}>
-            <h1 className="errorModal-card-title">{error}</h1>
-            <button onClick={handleClick} className="errorModal-card-button">
+          <motion.div className="modal-card" variants={modal}>
+            <h1 className="modal-card-title">{error}</h1>
+            <button onClick={handleClick} className="cancel-modal-card-button">
               Okieee!
             </button>
           </motion.div>

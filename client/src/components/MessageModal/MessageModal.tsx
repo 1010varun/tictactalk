@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import "./MessageModal.css";
+import "../Modal.css";
 
 const backgrop = {
   visible: { opacity: 1 },
@@ -33,15 +33,15 @@ export const MessageModal = ({ showMessageModal, setShowMessageModal, message, s
     <>
       {showMessageModal && (
         <motion.div
-          className="messageModal-container"
+          className="modal-container"
           variants={backgrop}
           initial="hidden"
           animate="visible"
           exit="exit"
         >
-          <motion.div className="messageModal-card" variants={modal}>
-            <h1 className="messageModal-card-title">{message}</h1>
-            <button onClick={handleClick} className="messageModal-card-button">
+          <motion.div className="modal-card" variants={modal}>
+            <h1 className="modal-card-title">{message}</h1>
+            <button onClick={handleClick} className="modal-card-button">
               Okieee!
             </button>
           </motion.div>

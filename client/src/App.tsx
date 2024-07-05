@@ -12,7 +12,7 @@ import { Footer } from "./components/Footer/Footer";
 const socket = io(import.meta.env.VITE_BACKEND_URL);
 
 const App = () => {
-  const [roomCode, setRoomCode] = useState(null);
+  const [roomCode, setRoomCode] = useState<any | null>(null);
   const [showJoinModal, setShowJoinModal] = useState(true);
   const [showMessageModal, setShowMessageModal] = useState(false);
   const [userName, setUserName] = useState(null);
@@ -22,6 +22,7 @@ const App = () => {
   const [showNewMesageModal, setShowNewMessageModal] = useState(false);
   const [newMessage, setNewMessage] = useState(null);
   const [showTypeNewMessageModal, setShowTypeNewMessageModal] = useState(false);
+  const [reset, setReset] = useState(false);
 
   useEffect(() => {
     console.log("roomCode = ", roomCode);
@@ -51,13 +52,18 @@ const App = () => {
 
     socket.on("opponent not present", () => {
       setShowErrorModal(true);
-      
+      setReset(true);
     });
 
     socket.on("newMessage", (newMessage) => {
       setMessage(newMessage);
       setShowNewMessageModal(true);
     })
+
+    socket.on("opponent left", () => {
+      setShowErrorModal(true);
+      setReset(true);
+    });
 
   });
 
@@ -84,7 +90,7 @@ const App = () => {
       <ErrorModal
         showErrorModal={showErrorModal}
         setShowErrorModal={setShowErrorModal}
-        error={`No opponent present in this room`}
+        error={`No opponent present in this room or left the room`}
       />
       <NewMessageModal
         setShowNewMessageModal={setShowNewMessageModal}
@@ -97,7 +103,7 @@ const App = () => {
         showTypeNewMessageModal={showTypeNewMessageModal}
       />
       {roomCode && (
-        <Main socket={socket} roomCode={roomCode} userName={userName} />
+        <Main socket={socket} roomCode={roomCode} reset={reset} setReset={setReset} />
       )}
       <Footer setShowTypeNewMessageModal={setShowTypeNewMessageModal} />
     </>

@@ -1,11 +1,13 @@
 FROM node:18-alpine
 
-WORKDIR /tic-tac-talk/
+WORKDIR /app
 
-COPY . /tic-tac-talk/
+COPY package.json .
 
 RUN npm install
 
-EXPOSE 5173
+COPY . .
 
-CMD ["npm", "run", "dev"]
+EXPOSE 8080
+
+CMD [ "npm", "run", "dev" ]
